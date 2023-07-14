@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPreferenceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::get("/create_db_tables", function(){
+   Artisan::call('migrate', [
+    '--force' => true,
+   ]);
+});
 
 Route::prefix('auth')->group(function () {
     Route::post("/signup", [UserController::class, "store"]);
