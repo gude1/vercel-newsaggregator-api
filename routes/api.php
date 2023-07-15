@@ -27,6 +27,7 @@ Route::get("/run-artisan", function () {
         Artisan::call('migrate', [
             '--force' => true,
         ]);
+        Artisan::call("storage:link");
         Artisan::call("l5-swagger:generate");
         return response()->json([
             "message" => "Artisan commands ran succcessfully"
