@@ -22,10 +22,20 @@ use Illuminate\Support\Facades\Artisan;
 //     return $request->user();
 // });
 
-Route::get("/create_db_tables", function(){
-   Artisan::call('migrate', [
-    '--force' => true,
-   ]);
+Route::get("/run-artisan", function () {
+    try {
+        Artisan::call('migrate', [
+            '--force' => true,
+        ]);
+        Artisan::call("l5-swagger:generate");
+        return response()->json([
+            "message" => "Artisan commands ran succcessfully"
+        ], 200);
+    } catch (\Throwable $th) {
+        return response()->json([
+            "error" => "Failed to run artisan commands"
+        ], 500);
+    }
 });
 
 Route::prefix('auth')->group(function () {
