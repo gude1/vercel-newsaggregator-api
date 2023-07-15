@@ -33,7 +33,7 @@ Route::get("/run-artisan", function () {
         ], 200);
     } catch (\Throwable $th) {
         return response()->json([
-            "error" => "Failed to run artisan commands"
+            "error" => "Failed to run artisan commands " . $th->getMessage()
         ], 500);
     }
 });
