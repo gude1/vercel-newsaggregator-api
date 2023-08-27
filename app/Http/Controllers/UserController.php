@@ -156,6 +156,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             Log::error("UserController.show: {$th->getMessage()}");
             return response()->json([
+                "err" => $th->getMessage(),
                 "error" => "Request failed could not process your request at the moment please try again"
             ], 500);
         }
