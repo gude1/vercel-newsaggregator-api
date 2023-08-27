@@ -6,6 +6,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\UserPreference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -150,8 +151,11 @@ class UserController extends Controller
     public function show(Request $request)
     {
         try {
+            $prefer = UserPreference::firstWhere('user_id',$request->user()->user_id);
+            $user = $request->user();
+            $user->preference;
             return response()->json([
-                "user" => $request->user()->load("preference"),
+                "user" => $user,
             ], 200);
         } catch (\Throwable $th) {
             Log::error("UserController.show: {$th->getMessage()}");
