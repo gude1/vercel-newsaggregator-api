@@ -25,8 +25,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get("/run-artisan", function () {
     try {
         Artisan::call('migrate', [
-            '--force' => true,
-            '--refresh' => true,          
+            '--force' => true
         ]);
         // Artisan::call("storage:link");
         // Artisan::call("l5-swagger:generate");
